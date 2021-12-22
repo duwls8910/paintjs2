@@ -12,6 +12,7 @@ ctx.lineWidth = 2.5;
 
 
 let painting = false;
+let filling = false;
 
 function onMouseMove(event){
   const x = event.offsetX;
@@ -23,12 +24,14 @@ function onMouseMove(event){
     ctx.lineTo(x,y);
     ctx.stroke();
   }
+  
 }
 
 function onMouseDown(event){
   painting = true;
   ctx.lineWidth = range.value;
 }
+
 function onMouseUp(event){
   painting= false;
 }
@@ -36,16 +39,26 @@ function onMouseLeave(event){
   painting= false;
 }
 
-function changeColor(event){ //적용안됨
+function changeColor(event){ 
   const color = event.target.style.backgroundColor;
   ctx.strokeStyle = color;
+  
+  if(filling){
+    ctx.rect(0,0,700,700);
+    ctx.fillStyle = color;
+    ctx.fill();
+  }
 }
+
+
 
 function changeBtnName(event){
   if(fillBtn.textContent === 'FILL'){
     fillBtn.textContent = 'PAINT';
+    filling = false;
   }else{
     fillBtn.textContent = 'FILL';
+    filling = true;
   }
 }
 
@@ -54,9 +67,8 @@ if(canvas){
   canvas.addEventListener('mousedown', onMouseDown);
   canvas.addEventListener('mouseup', onMouseUp);
   canvas.addEventListener('mouseleave', onMouseLeave);
+
 }
-
-
 
 fillBtn.addEventListener('click',changeBtnName);
 
