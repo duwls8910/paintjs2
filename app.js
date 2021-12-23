@@ -50,7 +50,10 @@ function changeColor(event){
   }
 }
 
-
+function handleCm(event){
+  console.log(event);
+  event.preventDefault();
+}
 
 function changeBtnName(event){
   if(fillBtn.textContent === 'FILL'){
@@ -62,14 +65,23 @@ function changeBtnName(event){
   }
 }
 
+function saveImg(event){
+  const image = canvas.toDataURL();
+  const link = document.createElement('a');
+  link.download = image;
+  console.log(link)
+}
+
 if(canvas){
   canvas.addEventListener('mousemove', onMouseMove);
   canvas.addEventListener('mousedown', onMouseDown);
   canvas.addEventListener('mouseup', onMouseUp);
   canvas.addEventListener('mouseleave', onMouseLeave);
+  canvas.addEventListener('contextmenu', handleCm);
 
 }
 
-fillBtn.addEventListener('click',changeBtnName);
+fillBtn.addEventListener('click', changeBtnName);
+saveBtn.addEventListener('click', saveImg);
 
 Array.from(colors).forEach(changecolors => changecolors.addEventListener('click',changeColor))
