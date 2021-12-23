@@ -69,7 +69,7 @@ function saveImg(event){
   const image = canvas.toDataURL();
   const link = document.createElement('a');
   link.download = image;
-  console.log(link)
+  link.click();
 }
 
 if(canvas){
